@@ -89,6 +89,46 @@ public class QLearningController extends Controller {
 		/* TODO: Remember to change NUM_ACTIONS constant to reflect the number of actions (including 0, no action) */
 		
 		/* TODO: IMPLEMENT THIS FUNCTION */
+		switch (action) {
+		case 0:
+			// Not sure if we have to leave this empty or call resetRockets()
+			break;
+		case 1:  // |*| | | | |
+			leftEngine.setBursting(true);
+			rightEngine.setBursting(false);
+			middleEngine.setBursting(false);
+			break;
+		case 2:  // | | | | |*|
+			leftEngine.setBursting(false);
+			rightEngine.setBursting(true);
+			middleEngine.setBursting(false);
+			break;
+		case 3:  // | | |*| | |
+			leftEngine.setBursting(false);
+			rightEngine.setBursting(false);
+			middleEngine.setBursting(true);
+			break;
+		case 4:  // |*| | | |*|
+			leftEngine.setBursting(true);
+			rightEngine.setBursting(true);
+			middleEngine.setBursting(false);
+			break;
+		case 5:  // |*| |*| | |
+			leftEngine.setBursting(true);
+			rightEngine.setBursting(false);
+			middleEngine.setBursting(true);
+			break;
+		case 6:  // | | |*| |*|
+			leftEngine.setBursting(false);
+			rightEngine.setBursting(true);
+			middleEngine.setBursting(true);
+			break;
+		case 7:  // |*| |*| |*|
+			leftEngine.setBursting(true);
+			rightEngine.setBursting(true);
+			middleEngine.setBursting(true);
+			break;
+		}
 		
 	}
 
