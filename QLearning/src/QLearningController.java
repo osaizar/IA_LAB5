@@ -92,6 +92,7 @@ public class QLearningController extends Controller {
 		switch (action) {
 		case 0:
 			// Not sure if we have to leave this empty or call resetRockets()
+			resetRockets();
 			break;
 		case 1:  // |*| | | | |
 			leftEngine.setBursting(true);
@@ -167,6 +168,10 @@ public class QLearningController extends Controller {
 				/* TODO: IMPLEMENT Q-UPDATE HERE! */
 				
 				/* See top for constants and below for helper functions */
+				// Q(s, a) ← Q(s, a) + α(R(s) + γ maxQ(s', a') − Q(s, a))
+				double new_value = Qtable.get(prev_stateaction);
+				new_value += alpha(Ntable.get(prev_stateaction)) * (GAMMA_DISCOUNT_FACTOR * getMaxActionQValue(new_state) - Qtable.get(prev_stateaction));
+				Qtable.put(prev_stateaction, new_value);
 				
 				
 				int action = selectAction(new_state); /* Make sure you understand how it selects an action */
