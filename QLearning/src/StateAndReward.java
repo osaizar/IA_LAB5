@@ -6,7 +6,35 @@ public class StateAndReward {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
 
-		String state = "OneStateToRuleThemAll";
+		//String state = "OneStateToRuleThemAll";
+		String state = "";
+		if (angle < -1.5) {      // Facing = south-west sector
+			state += "sec1-";
+		}
+		else if (angle < 0.0) {  // Facing = north-west sector
+			state += "sec2-";
+		}
+		else if (angle < 1.5) {  // Facing = north-east sector
+			state += "sec3-";
+		}
+		else {                   // Facing = south-east sector
+			state += "sec4-";
+		}
+		
+		// TODO: Probably more work to do here
+		if (vx > 0) {
+			state += "xon-";
+		}
+		else {
+			state += "xoff-";
+		}
+		
+		if (vy > 0) {
+			state += "yon";
+		}
+		else {
+			state += "yoff";
+		}
 		
 		return state;
 	}
