@@ -169,8 +169,12 @@ public class QLearningController extends Controller {
 				
 				/* See top for constants and below for helper functions */
 				// Q(s, a) ← Q(s, a) + α(R(s) + γ maxQ(s', a') − Q(s, a))
-				double new_value = Qtable.get(prev_stateaction);
-				new_value += alpha(Ntable.get(prev_stateaction)) * (GAMMA_DISCOUNT_FACTOR * getMaxActionQValue(new_state) - Qtable.get(prev_stateaction));
+				
+				double prev_value = Qtable.get(prev_stateaction);
+				double alpha_v = alpha(Ntable.get(prev_stateaction));
+				double reward = StateAndReward.getRewardAngle(angle.getValue(), vx.getValue(), vy.getValue());
+				double gamma_max = GAMMA_DISCOUNT_FACTOR * getMaxActionQValue(new_state);
+				double new_value = prev_value + alpha_v * (reward + gamma_max - prev_value);
 				Qtable.put(prev_stateaction, new_value);
 				
 				

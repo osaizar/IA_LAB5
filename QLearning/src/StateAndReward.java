@@ -23,17 +23,17 @@ public class StateAndReward {
 		
 		// TODO: Probably more work to do here
 		if (vx > 0) {
-			state += "xright-";
+			state += "xincr";
 		}
 		else {
-			state += "xleft--";
+			state += "xdecr";
 		}
 		
 		if (vy > 0) {
-			state += "yup--";
+			state += "yincr";
 		}
 		else {
-			state += "ydown";
+			state += "ydecr";
 		}
 		
 		return state;
@@ -43,58 +43,17 @@ public class StateAndReward {
 	public static double getRewardAngle(double angle, double vx, double vy) {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
-		if (angle < -1.5) {      // Facing = south-west sector
-			if (vx > 0 && vy > 0) {
-				return 2;
-			}
-			else if (vx > 0) {
-				return 3;
-			}
-			else if (vy > 0) {
-				return 1;
-			}
-			else
-				return 2;
-		}
-		else if (angle < 0.0) {  // Facing = north-west sector
-			if (vx > 0 && vy > 0) {
-				return 3;
-			}
-			else if (vx > 0) {
-				return 2;
-			}
-			else if (vy > 0) {
-				return 2;
-			}
-			else
-				return 1;
-		}
-		else if (angle < 1.5) {  // Facing = north-east sector
-			if (vx > 0 && vy > 0) {
-				return 2;
-			}
-			else if (vx > 0) {
-				return 1;
-			}
-			else if (vy > 0) {
-				return 3;
-			}
-			else
-				return 2;
-		}
-		else {                   // Facing = south-east sector
-			if (vx > 0 && vy > 0) {
-				return 1;
-			}
-			else if (vx > 0) {
-				return 2;
-			}
-			else if (vy > 0) {
-				return 2;
-			}
-			else
-				return 3;
-		}
+		double abs_angle = angle;
+		if (abs_angle < 0)
+			abs_angle = -abs_angle;
+		
+		double reward = 10000;
+		reward = reward / (abs_angle + 0.01);
+		
+		reward = reward - (10 * vx);
+		reward = reward - (10 * vy);
+		
+		return reward;
 	}
 
 	/* State discretization function for the full hover controller */
