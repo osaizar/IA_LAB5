@@ -61,7 +61,30 @@ public class StateAndReward {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
 
-		String state = "OneStateToRuleThemAll2";
+		String state = "";
+		if (angle < -1.5)       // Facing = south-west sector
+			state += "sec1-";
+		else if (angle < 0.0)   // Facing = north-west sector
+			state += "sec2-";
+		else if (angle < 1.5)   // Facing = north-east sector
+			state += "sec3-";
+		else                    // Facing = south-east sector
+			state += "sec4-";
+		
+		// TODO: Probably more work to do here
+		if (vx >= 0.5) 
+			state += "xincr-";
+		else if (vx > -0.5)
+			state += "xstbl-";
+		else 
+			state += "xdecr-";
+		
+		if (vy >= 0.5) 
+			state += "yincr-";
+		else if (vy > -0.5)
+			state += "ystbl-";
+		else 
+			state += "ydecr-";
 		
 		return state;
 	}
@@ -71,8 +94,28 @@ public class StateAndReward {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
 		
-		double reward = 0;
-
+		double abs_angle = angle;
+		if (abs_angle < 0)
+			abs_angle = -abs_angle;
+		double abs_vy = vy;
+		if (abs_vy < 0)
+			abs_vy = -abs_vy;
+		double abs_vx = vx;
+		if (abs_vx < 0)
+			abs_vx = -abs_vx;
+		
+		double reward = 1000000;                 // 1000000 facing up ~333333 facing down
+		reward = reward / (abs_angle + 0.01);
+		/*  vy ~= -2.1, vx stable
+		reward = reward - (100 * vx);
+		reward = reward - (500 * abs_vy);
+		
+		if (vy > -0.5 && vy < 0.5)
+			reward += 2000;
+		*/
+		reward = reward / (300 * abs_vy);
+		reward = reward / (100 * abs_vx);
+		
 		return reward;
 	}
 
