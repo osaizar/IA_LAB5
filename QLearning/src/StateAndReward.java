@@ -60,16 +60,18 @@ public class StateAndReward {
 	public static String getStateHover(double angle, double vx, double vy) {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
+		
+		// SPACE STATE TIMES POSSIBLE ACTIONS = 4*3*3*8 = 36 * 8 = 288
 
 		String state = "";
-		if (angle < -1.5)       // Facing = south-west sector
-			state += "sec1-";
-		else if (angle < 0.0)   // Facing = north-west sector
-			state += "sec2-";
-		else if (angle < 1.5)   // Facing = north-east sector
-			state += "sec3-";
-		else                    // Facing = south-east sector
-			state += "sec4-";
+		if (angle < -2.25 || angle > 2.25)       // Facing = south sector
+			state += "south-";
+		else if (angle < -0.75)   // Facing = west sector
+			state += "west-";
+		else if (angle < 0.75)   // Facing = north sector
+			state += "north-";
+		else                    // Facing = east sector
+			state += "east-";
 		
 		// TODO: Probably more work to do here
 		if (vx >= 0.5) 
@@ -93,29 +95,20 @@ public class StateAndReward {
 	public static double getRewardHover(double angle, double vx, double vy) {
 
 		/* TODO: IMPLEMENT THIS FUNCTION */
+		double reward;
 		
-		double abs_angle = angle;
-		if (abs_angle < 0)
-			abs_angle = -abs_angle;
-		double abs_vy = vy;
-		if (abs_vy < 0)
-			abs_vy = -abs_vy;
-		double abs_vx = vx;
-		if (abs_vx < 0)
-			abs_vx = -abs_vx;
-		
-		double reward = 1000000;                 // 1000000 facing up ~333333 facing down
-		reward = reward / (abs_angle + 0.01);
-		/*  vy ~= -2.1, vx stable
-		reward = reward - (100 * vx);
-		reward = reward - (500 * abs_vy);
-		
-		if (vy > -0.5 && vy < 0.5)
-			reward += 2000;
-		*/
-		reward = reward / (300 * abs_vy);
-		reward = reward / (100 * abs_vx);
-		
+		if (angle < -2.25 || angle > 2.25) {
+			reward = 0;
+		}
+		else if (angle < -0.75) {
+			reward = 50;
+		}
+		else if (angle < 0.75) {
+			reward = 100;
+		}
+		else {
+			reward = 50;
+		}
 		return reward;
 	}
 
