@@ -105,6 +105,14 @@ public class StateAndReward {
 		}
 		else if (angle < 0.75) {
 			reward = 100;
+			if (angle < 0.40 && angle > -0.40)
+				reward = 1000;
+			if ((-0.4 < vx && vx < 0.4) && (-0.4 < vy && vy < 0.4))
+				reward += 1000;
+			else if (-0.4 < vy && vy < 0.4)
+				reward += 500;
+			else if (-0.4 < vx && vx < 0.4)
+				reward += 300;
 		}
 		else {
 			reward = 50;
